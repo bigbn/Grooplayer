@@ -1,0 +1,27 @@
+html {height: 100%; background: #000 url("/media/images/style.jpg") left top no-repeat; background-size: 100%;  color: #C1F3F4; font-family: Play, sans-serif}
+body {height: 96%; margin: 1% 2%; width: 96%}
+p{color: #A1C3B4;}
+h1 {color: white; margin-right: 0; padding-right: 0;}
+small {color: #63734F}
+h1 span {color: #EFEF9E}
+h3:first-letter{text-transform:uppercase}
+
+#navigator {width: 35%; float: left; text-align: left}
+a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-right: 2%}
+#content {width: 670px; float: left; text-align: justify; background: rgba(0,0,0,0.6); border-radius: 4px}
+#content #inner {padding: 1% 5% }
+#content img {border: solid black 4px}
+
+#logo {font-size: 2.3em;color: #FFEFAA; font-family: Comfortaa;}
+#current {color: white; font-weight: bold}
+.login {top: 1%; right: 1%; position: fixed}
+.errorlist {color: red; margin: 0; padding: 0; list-style: none; font-size: small; margin-left: 21%}
+
+li a{color: #AABB99; text-decoration: none}
+.playing {border-radius: 4px; background: rgba(255,225,215,0.2); padding: 5% 5%; margin-right: 5%; width: 80%; font-size: small; margin-bottom: 5%}
+.playing h4 {margin: 0; margin-bottom: 5%; text-decoration: none; display: block; border-radius: 3px; background: rgba(255,255,255,0.2); padding: 1%; color: white}
+.controls {text-decoration: none; display: block; border-radius: 3px; background: rgba(255,255,255,0.2); color: white; text-align: right}
+.controls img {vertical-align: top}
+.playing #playing {border-radius: 4px; color: white; font-size: 2em}
+
+#next_song {background: rgba(255,225,215,0.1)}
