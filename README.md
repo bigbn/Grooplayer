@@ -1,4 +1,5 @@
 Grooplayer
 ==========
 
-No descriptiom yet
+Group media player based on Django and MPD.
+Target platform: Raspbery-Py
