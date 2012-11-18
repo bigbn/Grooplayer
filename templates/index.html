@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/LocalBusiness">
+    <head>
+        <meta itemprop="name" content="Mineshafter server">
+        <meta itemprop="description" content="Best minecraft server ever! With rails )">
+        <meta itemprop="image" content="/media/images/Minecraft.png">
+
+        <meta charset="utf-8" />
+        <title>Mineshafter.ru</title>
+        <link id="favicon" rel="shortcut icon" href="/media/images/Minecraft.png">
+        <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <script language="JavaScript"  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
+
+        <link rel="stylesheet" href="/media/css/base.css" media="all">
+        <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
+        <meta name="description" content="Best mineshafer server for ever" />
+        <meta name="keywords" content="minecraft,mineshafter,creeper" />
+    </head>
+
+<body>
+    <div id="pano"></div>
+    <div id="navigator">
+        <!--<img src="/media/images/Minecraft_l.png"/> -->
+        <h1><a id="logo_text" style="text-decoration: none; font-size: 1em" href="/">Mine<span>shafter.ru</span><a></h1>
+        <a href="/news/">News<a>
+        <a href="/">About<a>
+        <a href="/forum/forums/">Forums<a>
+        <a href="/factions/">Factions<a>
+        <br/>
+        {% if user.is_authenticated %}
+        <a href="/logout/">Log out<a>
+        {% endif %}
+    </div>
+    <div id="content">
+      <div id="inner">
+      
+        {% block "content" %}
+        <div class="poster">
+            <h2>We are opened!</h2>
+            <p>You are always welcome<p>
+            <p>Use the <b>mineshafter.ru</b> as server name for connect to game server</p>
+            <img src="/media/images/road.jpg" /><br/>
+            <h2>Admins</h2>
+            <p>There are only 2 admins on the server. Me (<b>bigbnn</b>) and <b>Gamedevils1</b></p>
+            <img src="/media/images/admins.jpg" />
+            <h2>Freedom</h2>
+            <p>We dont say u what you must to do, we can say only what you can't do</p>
+            <img src="/media/images/home.jpg" />
+            <br/>
+            <img src="/media/images/proz2.jpg" />
+ 			<br/>
+ 			<img src="/media/images/elite.jpg" />
+        </div>
+        {% endblock %}
+        	{% if not user.is_authenticated %}
+			<a class="button login" href="/login/">Login</a>
+		{% endif %}
+      </div>
+    </div>
+</body>
