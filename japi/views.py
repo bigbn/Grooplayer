@@ -14,7 +14,8 @@ def volume(request):
             client.timeout = 10
             client.idletimeout = None
             client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
-            client.setvol(80+int(float(volume)*0.2))
+            #client.setvol(80+int(float(volume)*0.2))
+            client.setvol(volume)
             client.close()
             client.disconnect()
             
