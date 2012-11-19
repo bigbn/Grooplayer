@@ -7,6 +7,14 @@ from django.http import HttpResponseRedirect
 #import logging
 
 
+@render_to("library.html")
+def library(request):
+    client = mpd.MPDClient()
+    client.timeout = 10
+    client.idletimeout = None
+    client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+    return {"status": client.status()}
+
 @render_to("index.html")
 def mainpage(request,id = None, action = None):
     client = mpd.MPDClient()

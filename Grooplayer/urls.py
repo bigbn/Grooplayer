@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'base.views.mainpage'),
+    url(r'^library/$', 'base.views.library'),
     url(r'^play/(?P<id>\d+)/$', 'base.views.mainpage'),
     url(r'^control/(?P<action>.*$)','base.views.mainpage'),
     url(r'^media/(?P<path>.*$)',
