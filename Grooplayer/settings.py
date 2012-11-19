@@ -158,3 +158,6 @@ logging.basicConfig(
     filename='server.log',
     filemode='a'
 )
+
+MPD_SERVER = "192.168.0.50"
+MPD_PORT = "6600"

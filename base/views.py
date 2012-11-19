@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 from decorators import render_to
 from models import *
+import Grooplayer.settings
 import mpd
 from django.http import HttpResponseRedirect
 #import logging
@@ -11,7 +12,7 @@ def mainpage(request,id = None, action = None):
     client = mpd.MPDClient()
     client.timeout = 10
     client.idletimeout = None
-    client.connect("localhost", 6600)
+    client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
     
     if action:
         if action == "play":

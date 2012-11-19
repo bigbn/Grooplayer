@@ -8,17 +8,24 @@
         <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
  
-        <script language="JavaScript"  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+	    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
         <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
+        <script language="JavaScript"  type="text/javascript" src="/media/controls.js"></script>
         <script language="JavaScript"  type="text/javascript" src="/media/jquery.raty.min.js"></script>
 
         <link rel="stylesheet" href="/media/css/base.css" media="all">
         <link rel="stylesheet" href="/media/css/s" media="all">
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
+        <script>
+      		$(document).ready(function(){
+        		$( "#slider" ).slider( "value", {{ status.volume }} );
+        	});
+        </script>
     </head>
 
 <body>
-
     <div id="navigator">
 	    <div id="logo">Grooplayer</div>
         <a class="menu" href="/news/">News</a>
@@ -36,7 +43,8 @@
            	<div style="height: 100%; position: absolute; font-size: 8em; text-align: right; margin-left: 12%; z-index: -2; color: rgba(255,255,255,0.06)">
     			{{ status.bitrate }}
     		</div>
-   			 <h4>Now playing</h4>
+    		 <h4>Now playing</h4>
+   			
    			 {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
     		 <span id="playing">#{{ current_song.id }} {{ current_song.title }}</span><br/>
     		 {% if current_song.album %}<span id="album">Album: {{ current_song.album }} {% if current_song.date %} ({{ current_song.date }}){% endif %}</span><br/>{% endif %}
@@ -70,7 +78,11 @@
 			</div>
     	</div>
     	{% endif %}
-    	
+    	    		 	<section>
+				  <span class="tooltip"></span>
+				  <div id="slider"></div>
+				  <span class="volume"></span>
+				</section>
     </div>
    
     <div id="content">
