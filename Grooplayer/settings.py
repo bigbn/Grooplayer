@@ -93,8 +93,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.RemoteUserBackend',
 )
 
 ROOT_URLCONF = 'Grooplayer.urls'
@@ -159,5 +164,5 @@ logging.basicConfig(
     filemode='a'
 )
 
-MPD_SERVER = "192.168.0.50"
+MPD_SERVER = "192.168.35.97"
 MPD_PORT = "6600"

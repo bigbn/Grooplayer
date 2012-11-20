@@ -4,9 +4,10 @@ from models import *
 import Grooplayer.settings
 import mpd
 from django.http import HttpResponseRedirect
+from Grooplayer.httpauth import *
 #import logging
 
-
+@logged_in_or_basicauth()
 @render_to("library.html")
 def library(request):
     client = mpd.MPDClient()

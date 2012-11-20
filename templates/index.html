@@ -43,7 +43,7 @@
            	<div style="height: 100%; position: absolute; font-size: 8em; text-align: right; margin-left: 12%; z-index: -2; color: rgba(255,255,255,0.06)">
     			{{ status.bitrate }}
     		</div>
-    		 <h4>Now playing</h4>
+    		 <h4>Now {% if status.state = "play" %}playing{% else %} stopped {% endif %}</h4>
    			
    			 {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
     		 <span id="playing">#{{ current_song.id }} {{ current_song.title }}</span><br/>
