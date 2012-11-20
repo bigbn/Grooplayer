@@ -110,14 +110,14 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
+'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'base'
-    #'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -159,5 +159,5 @@ logging.basicConfig(
     filemode='a'
 )
 
-MPD_SERVER = "192.168.35.97"
+MPD_SERVER = "192.168.0.50"
 MPD_PORT = "6600"

@@ -13,7 +13,9 @@ def library(request):
     client.timeout = 10
     client.idletimeout = None
     client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
-    return {"status": client.status()}
+    status = client.status()
+    library = client.listallinfo()
+    return {"status": status, "library": library}
 
 @render_to("index.html")
 def mainpage(request,id = None, action = None):

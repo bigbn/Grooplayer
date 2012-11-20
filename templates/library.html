@@ -1,7 +1,12 @@
 {% extends "index.html" %}
       
-        {% block "content" %}
-        <div class="poster">
-        empty now
+{% block "content" %}
+	<div class="poster">
+		<h2>Library</h2>
+           <ol>
+           	{% for song in library  %}
+           		<li value="{{ song.id }}" >{{ song.title }}</li>
+           	{% endfor %}
+           </ol>
 	</div>
-        {% endblock %}
+{% endblock %}
