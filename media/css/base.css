@@ -13,6 +13,7 @@ a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-rig
 #content img {border: solid black 4px}
 
 #logo {font-size: 2.3em;color: #FFEFAA; font-family: Comfortaa;}
+#logo a{text-decoration: none; color: #FFEFAA}
 #current {color: white; font-weight: bold}
 .login {top: 1%; right: 1%; position: fixed}
 .errorlist {color: red; margin: 0; padding: 0; list-style: none; font-size: small; margin-left: 21%}
