@@ -41,7 +41,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ=False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -93,13 +93,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.contrib.auth.middleware.RemoteUserMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.RemoteUserBackend',
 )
 
 ROOT_URLCONF = 'Grooplayer.urls'
@@ -122,7 +117,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'base'
+    'base',
+    'registration',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -164,5 +160,22 @@ logging.basicConfig(
     filemode='a'
 )
 
-MPD_SERVER = "192.168.35.97"
+# MPD Settings
+MPD_SERVER = "192.168.0.50"
 MPD_PORT = "6600"
+
+#User Registration
+LOGIN_URL = "/login/"
+
+ACCOUNT_ACTIVATION_DAYS = 2
+
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'grooplayer@gmail.com'
+EMAIL_HOST_PASSWORD = 'groogroo'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'grooplayer@gmail.com'
+
+#Exteneded user profile
+AUTH_PROFILE_MODULE = 'base.UserProfile'

@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+      
+{% block "content" %}
+	<div class="poster">
+		<h2>Journal</h2>
+           <ul>
+           	{% for record in journal  %}
+           		<li>{{ record.date }}: {{ record.user.username }} {{ record.action }}</li>
+           	{% endfor %}
+           </ul>
+	</div>
+{% endblock %}

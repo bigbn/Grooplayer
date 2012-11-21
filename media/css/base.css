@@ -6,10 +6,18 @@ small {color: #63734F}
 h1 span {color: #EFEF9E}
 h3:first-letter{text-transform:uppercase}
 
+/* Forms */
+.form ul, .form li {display: block; padding: none; margin: none}
+.form label {display: block; width: 20%; float: left;  margin-right: 1%}
+.submit {margin-left: 21%;}
+.button {padding: 1%; background: rgba(255,255,255,0.2); border-radius: 3px; border: solid 1px rgba(0,0,0,0.2); line-height: 200%; cursor: pointer; text-decoration: none; color: #ddedFd}
+.button:hover {padding: 1%; background: rgba(255,255,255,0.4); border-radius: 3px; border: solid 1px rgba(0,0,0,0.4);; line-height: 200%; cursor: pointer}
+
+
 #navigator {width: 35%; float: left; text-align: left; position: fixed; }
 a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-right: 2%}
-#content {width: 670px; float: left; text-align: justify; background: rgba(255,255,255,0.06); border-radius: 4px; margin-left: 36%}
-#content #inner {padding: 1% 5% }
+#content {width: 670px; float: left; text-align: justify;  margin-left: 36%}
+#content .inner {padding: 1% 5%; background: rgba(255,255,255,0.06); border-radius: 4px; }
 #content img {border: solid black 4px}
 
 #logo {font-size: 2.3em;color: #FFEFAA; font-family: Comfortaa;}

@@ -28,15 +28,12 @@
 <body>
     <div id="navigator">
 	    <div id="logo"><a href="/">Grooplayer</a></div>
-        <a class="menu" href="/news/">News</a>
+        <a class="menu" href="/journal/">Journal</a>
         <a class="menu" href="/">Playlist</a>
         <a class="menu" href="/library/">Library</a>
-        <a class="menu" href="/player/">Top 50</a>
-        <br/>
-        {% if user.is_authenticated %}
-        <a href="/logout/">Log out</a>
-        {% endif %}
-        <br/>
+        <a class="menu" href="/player/">Top 50</a>       
+        <div class="clear"></div>
+        <br/><br/>
         
         {% if current_song %}
         <div class="playing" id="current_song">
@@ -86,8 +83,15 @@
     </div>
    
     <div id="content">
-      <div id="inner">
-      
+    {% block "user" %}
+     {% if user.is_authenticated %}
+	  <div class="inner" id="user">
+ 		You are logged in as <b>{{ user.username }}</b>. Karma: <b>{{ carma }}</b></b>
+	  </div>
+	  {% endif %}
+	 {% endblock %}
+	  <br/>
+      <div class="inner" id="content_container">
         {% block "content" %}
         <div class="poster">
            <h2>Playlist</h2>
@@ -99,8 +103,10 @@
         </div>
         {% endblock %}
         	{% if not user.is_authenticated %}
-			<a class="button login" href="/login/">Login</a>
-		{% endif %}
+				<a class="button login" href="/login/">Login</a>
+			{% else %}
+	        	<a class="button login" href="/logout/">Log out</a>
+      	    {% endif %}
       </div>
     </div>
 </body>

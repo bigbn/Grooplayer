@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	forms_handler();
+});
+
 $(function() {
   var slider  = jQuery( '#slider' ),
       tooltip = jQuery( '.tooltip' );
@@ -34,5 +38,25 @@ $(function() {
     }
     
   });
- 
 });
+
+
+forms_handler = function() 
+{	
+    $('<a class="expand button">'+$(".form").attr("title")+'</a>').insertBefore('.form');
+	$(".form").hide("normal");
+	
+	$(".expand").live("click",function() {
+		$(".form").show("normal");
+		$(".expand").hide("normal");
+		$(".form").wrap('<form action="" method="post">');
+		$(".form").append('<br/><a class="submit button">Submit</a>');
+		$("#register_link").hide("normal"); //костыль, но быстро
+	});
+	
+	$(".submit").live("click",function() { 
+		$(this).parent("div").parent("form").submit();
+	});
+	
+	if ($(".form").attr("opened") == "true") $(".expand").click();
+}

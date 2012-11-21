@@ -1,0 +1,4 @@
+Registration on site
+Here is the link for activation your account:
+http://{{ site }}/accounts/activate/{{ activation_key }}/
+Thanks for listening and see you in Grooplayer!

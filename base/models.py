@@ -1,3 +1,34 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+def user_profile(user):
+    profile = None
+    try:
+        profile = user.get_profile()
+    except UserProfile.DoesNotExist:
+        UserProfile(user=user).save()
+        profile = user.get_profile()
+    return profile
+
+def log(user,action):
+    Action(user = user, action = action).save()
+    records = Action.objects.all().order_by("-date")[:30]
+    if Action.objects.count() > 30:
+        Action.objects.exclude(pk__in=records).delete()
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True, related_name='profile', null=False)
+    carma = models.IntegerField(default=10)
+    
+    def take(self, count):
+        self.carma -= count
+        self.save()
+        
+    def give(self, count):
+        self.carma += count
+        self.save()
+    
+class Action(models.Model):
+    user = models.ForeignKey(User)
+    date = models.DateTimeField(u'Date', auto_now_add=True)
+    action = models.TextField(u'Text', max_length=1000)
