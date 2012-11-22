@@ -35,18 +35,19 @@ def mainpage(request, id=None, action=None):
     
     if request.user.is_authenticated():
         profile = user_profile(request.user)
+        carma = profile.carma
     
     if action:
         if request.user.is_authenticated():
-            if action == "play":
+            if action == "play" and carma > 0:
                 client.play()
                 profile.take(1)
                 log(request.user, "used the play button")
-            elif action == "stop":
+            elif action == "stop" and carma > 0:
                 client.stop()
                 profile.take(1)
                 log(request.user, "used the stop button")
-            elif action == "pause":
+            elif action == "pause" and carma > 0:
                 client.pause()
                 profile.take(1)
                 log(request.user, "used the pause button")
@@ -56,10 +57,11 @@ def mainpage(request, id=None, action=None):
     
     if id:
         if request.user.is_authenticated():
-            client.playid(id)
-            profile.take(1)
-            log(request.user, "changed song to #%s" % id)
-            return HttpResponseRedirect("/")
+            if carma > 0:
+                client.playid(id)
+                profile.take(1)
+                log(request.user, "changed song to #%s" % id)
+                return HttpResponseRedirect("/")
         else:
             return HttpResponseRedirect("/login/")
     
