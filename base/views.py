@@ -69,7 +69,7 @@ def mainpage(request, id=None, action=None):
 
     current_song = client.currentsong()
     status = client.status()
-    status['volume'] = str((int(status['volume'])-80)*5)
+    #status['volume'] = str((int(status['volume'])-80)*5)
     next_song = [{}]
     try:
         next_song = client.playlistinfo(status['nextsong'])

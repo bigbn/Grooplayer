@@ -161,7 +161,7 @@ logging.basicConfig(
 )
 
 # MPD Settings
-MPD_SERVER = "192.168.0.50"
+MPD_SERVER = "192.168.0.100"
 MPD_PORT = "6600"
 
 #User Registration

@@ -2,7 +2,7 @@
 #00 08-19 * * 2-6 python /home/bigbn/Repo/Grooplayer/karma_update.py
 
 import os
-os.chdir("/home/bigbn/Repo/Grooplayer")
+os.chdir("/home/groo/")
 
 from django.core.management import setup_environ
 import Grooplayer.settings
