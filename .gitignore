@@ -1,5 +1,8 @@
+.*
 *.log
 *.pot
 *.pyc
 *.db
+*.mp3
+*.flac
 local_settings.py
