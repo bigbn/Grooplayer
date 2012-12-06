@@ -4,7 +4,45 @@ from models import *
 import Grooplayer.settings
 import mpd
 from django.http import HttpResponseRedirect
-#import logging
+from forms import TrackForm
+from ID3 import *
+import logging
+
+def handle_uploaded_file(file_path,id):
+    path = 'music/'+file_path.name
+    dest = open(path,"wb")
+    for chunk in file_path.chunks():
+        dest.write(chunk)
+    dest.close()
+    id3info = ID3(path)
+    id3info['COMMENT'] = str(id)
+    try:
+        title = id3info['TITLE']
+    except:
+        title = "Unknown title"
+    return title
+    
+@render_to("profile.html")
+def profile(request):
+    if request.method == 'POST':
+        form = TrackForm(request.POST, request.FILES, user=request.user)
+        if form.is_valid():
+            instance = form.save(commit=True)
+            title = handle_uploaded_file(request.FILES['file'],instance.id)
+            instance.title = title
+            instance.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = TrackForm(user=request.user)
+        
+    client = mpd.MPDClient()
+    client.timeout = 10
+    client.idletimeout = None
+    client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+    status = client.status()
+    journal = Action.objects.all().order_by("-date")
+    tracks = Track.objects.filter(user=request.user)
+    return {"status": status, "journal": journal, "tracks": tracks,"form": form}
 
 @render_to("journal.html")
 def journal(request):

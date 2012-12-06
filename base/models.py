@@ -28,7 +28,29 @@ class UserProfile(models.Model):
         self.carma += count
         self.save()
     
+    def __unicode__(self):
+        return u'%s' % (self.user)
+    
 class Action(models.Model):
     user = models.ForeignKey(User)
     date = models.DateTimeField(u'Date', auto_now_add=True)
     action = models.TextField(u'Text', max_length=1000)
+    
+class Track(models.Model):
+    user = models.ForeignKey(User)
+    date = models.DateTimeField(u'Date', auto_now_add=True)
+    title = models.CharField(u'Title', max_length=300, null=True, blank=True)
+    file = models.FileField(u'Track',upload_to = 'music',blank=False, null=False, max_length=300)
+    likes = models.IntegerField(default=1)
+    dislikes = models.IntegerField(default=0)
+    
+    def like(self, count):
+        self.likes += 1
+        self.save()
+        
+    def dislike(self, count):
+        self.dislikes -= 1
+        self.save()
+
+    def __unicode__(self):
+        return u'%s' % (self.file)

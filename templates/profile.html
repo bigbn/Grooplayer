@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+      
+{% block "content" %}
+	<div class="poster">
+		<h2>Profile</h2>
+
+		<div class="form" title="Upload new file" opened="false">
+	 		{% csrf_token %}
+			{{ form.as_ul }}
+		</div>
+
+           <ol>
+           	{% for song in tracks  %}
+           		<li value="{{ song.id }}" >{{ song.title }}</li>
+           	{% endfor %}
+           </ol>
+	</div>
+{% endblock %}

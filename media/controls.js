@@ -49,7 +49,7 @@ forms_handler = function()
 	$(".expand").live("click",function() {
 		$(".form").show("normal");
 		$(".expand").hide("normal");
-		$(".form").wrap('<form action="" method="post">');
+		$(".form").wrap('<form action="" method="post" enctype="multipart/form-data">');
 		$(".form").append('<br/><a class="submit button">Submit</a>');
 		$("#register_link").hide("normal"); //костыль, но быстро
 	});

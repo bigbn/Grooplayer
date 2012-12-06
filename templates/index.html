@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="/media/css/s" media="all">
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
         <script>
+        	current_song_file = "{{ current_song.file }}";
       		$(document).ready(function(){
         		$( "#slider" ).slider( "value", {{ status.volume }} );
         	});
@@ -31,7 +32,7 @@
         <a class="menu" href="/journal/">Journal</a>
         <a class="menu" href="/">Playlist</a>
         <a class="menu" href="/library/">Library</a>
-        <a class="menu" href="/player/">Top 50</a>       
+        <a class="menu" href="/profile/">Profile</a>       
         <div class="clear"></div>
         <br/><br/>
         
@@ -58,7 +59,11 @@
 					<img src="/media/images/play.png"/>
 				</a>
 			</div>
-			
+			<br/>
+			<div>
+				<a class="button" id="dislike">Dislike</a>
+				<a class="button" id="like">Like</a>
+			</div>
     	</div>    
     	{% endif %}		 
 

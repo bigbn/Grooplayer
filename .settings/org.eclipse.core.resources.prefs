@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//base/admin.py=utf-8
 encoding//base/decorators.py=utf-8
 encoding//base/views.py=utf-8
 encoding//japi/views.py=utf-8
