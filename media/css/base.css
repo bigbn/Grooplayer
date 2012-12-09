@@ -1,4 +1,4 @@
-html {height: 100%; background: #000 url("/media/images/style.jpg") no-repeat fixed left top; background-size: 100%; color: #C1F3F4; font-family: Play, sans-serif}
+html {height: 100%; background: #000 url("/media/images/style.jpg") no-repeat fixed left top; background-size: 100%; color: #F1F3C4; font-family: Play, sans-serif}
 body {height: 96%; margin: 1% 2%; width: 96%}
 p{color: #A1C3B4;}
 h1 {color: white; margin-right: 0; padding-right: 0;}
@@ -12,8 +12,18 @@ h3:first-letter{text-transform:uppercase}
 .submit {margin-left: 21%;}
 .button {padding: 1%; background: rgba(255,255,255,0.2); border-radius: 3px; border: solid 1px rgba(0,0,0,0.2); line-height: 200%; cursor: pointer; text-decoration: none; color: #ddedFd}
 .button:hover {padding: 1%; background: rgba(255,255,255,0.4); border-radius: 3px; border: solid 1px rgba(0,0,0,0.4);; line-height: 200%; cursor: pointer}
-
-
+.button img {vertical-align: top}
+.left {float: left}
+.right {float: right }
+.tright {text-align: right}
+.clear {clear: both}
+.reddy {background: rgba(255,0,0,0.4);}
+.greeny {background: rgba(0,255,0,0.4);}
+.reddy:hover {background: rgba(255,0,0,0.8);}
+.greeny:hover {background: rgba(0,255,0,0.8);}
+.small {font-size: small}
+.half {width: 50%}
+.song:hover {background: rgba(255,255,230,0.3);}
 #navigator {width: 35%; float: left; text-align: left; position: fixed; }
 a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-right: 2%}
 #content {width: 670px; float: left; text-align: justify;  margin-left: 36%}
@@ -22,7 +32,8 @@ a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-rig
 
 #logo {font-size: 2.3em;color: #FFEFAA; font-family: Comfortaa;}
 #logo a{text-decoration: none; color: #FFEFAA}
-#current {color: white; font-weight: bold}
+#current {color: white; background: rgba(255,255,0,0.2); }
+.song {cursor: pointer;}
 .login {top: 1%; right: 1%; position: fixed}
 .errorlist {color: red; margin: 0; padding: 0; list-style: none; font-size: small; margin-left: 21%}
 
@@ -34,6 +45,7 @@ li a{color: #AABB99; text-decoration: none}
 .playing #playing {border-radius: 4px; color: white; font-size: 2em}
 
 #next_song {background: rgba(255,225,215,0.1)}
+.box{border-radius: 4px; background: rgba(255,225,215,0.2); padding: 2% 2%; width: 92%; margin-bottom: 2%}
 
 section {
   width: 150px;

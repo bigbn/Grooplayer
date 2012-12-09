@@ -8,37 +8,22 @@ from forms import TrackForm
 from ID3 import *
 import logging
 
-def handle_uploaded_file(file_path,id):
-    path = 'music/'+file_path.name
-    dest = open(path,"wb")
-    for chunk in file_path.chunks():
-        dest.write(chunk)
-    dest.close()
-    id3info = ID3(path)
-    id3info['COMMENT'] = str(id)
-    try:
-        title = id3info['TITLE']
-    except:
-        title = "Unknown title"
-    return title
-    
 @render_to("profile.html")
 def profile(request):
-    if request.method == 'POST':
-        form = TrackForm(request.POST, request.FILES, user=request.user)
-        if form.is_valid():
-            instance = form.save(commit=True)
-            title = handle_uploaded_file(request.FILES['file'],instance.id)
-            instance.title = title
-            instance.save()
-            return HttpResponseRedirect('/')
-    else:
-        form = TrackForm(user=request.user)
-        
     client = mpd.MPDClient()
     client.timeout = 10
     client.idletimeout = None
     client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+    
+    if request.method == 'POST':
+        form = TrackForm(request.POST, request.FILES, user=request.user)
+        if form.is_valid():
+            instance = form.save(commit=True)
+            client.update()
+            return HttpResponseRedirect('/')
+    else:
+        form = TrackForm(user=request.user)
+        
     status = client.status()
     journal = Action.objects.all().order_by("-date")
     tracks = Track.objects.filter(user=request.user)
@@ -79,15 +64,15 @@ def mainpage(request, id=None, action=None):
         if request.user.is_authenticated():
             if action == "play" and carma > 0:
                 client.play()
-                profile.take(1)
+                profile.take(2)
                 log(request.user, "used the play button")
             elif action == "stop" and carma > 0:
                 client.stop()
-                profile.take(1)
+                profile.take(2)
                 log(request.user, "used the stop button")
             elif action == "pause" and carma > 0:
                 client.pause()
-                profile.take(1)
+                profile.take(2)
                 log(request.user, "used the pause button")
             return HttpResponseRedirect("/")
         else:
@@ -97,7 +82,7 @@ def mainpage(request, id=None, action=None):
         if request.user.is_authenticated():
             if carma > 0:
                 client.playid(id)
-                profile.take(1)
+                profile.take(2)
                 log(request.user, "changed song to #%s" % id)
                 return HttpResponseRedirect("/")
         else:

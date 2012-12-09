@@ -11,7 +11,6 @@ def volume(request):
     if request.method == "POST":
         if request.POST["value"]:
             volume = request.POST["value"]
-
             client = mpd.MPDClient()            
             client.timeout = 10
             client.idletimeout = None
@@ -27,12 +26,40 @@ def volume(request):
 @csrf_exempt
 def like(request):
     if request.method == "POST":
-        if request.POST["filename"]:
-            filename = ""+request.POST["filename"]
-            logging.info(filename)
-            track = Track.objects.get(file=filename)
-            track.like()
+        if request.POST["id"]:
+            pk = request.POST["id"]            
+            client = mpd.MPDClient()            
+            client.timeout = 10
+            client.idletimeout = None
+            client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+            filename = client.playlistid(pk)[0]['file']
+            track = Track.objects.filter(file__endswith=filename)[0]
+            track.like(1)
             profile = user_profile(request.user)
             profile.take(1)
 
+    return HttpResponse(status=200)
+
+@csrf_exempt
+def dislike(request):
+    if request.method == "POST":
+        if request.POST["id"]:
+            pk = request.POST["id"]            
+            client = mpd.MPDClient()            
+            client.timeout = 10
+            client.idletimeout = None
+            client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+            filename = client.playlistid(pk)[0]['file']
+            track = Track.objects.filter(file__endswith=filename)[0]
+            track.dislike(1)
+            profile = user_profile(request.user)
+            profile.take(1)
+
+    return HttpResponse(status=200)
+
+
+@csrf_exempt
+def karma(request):
+    #profile = user_profile(request.user)
+    #profile.carma
     return HttpResponse(status=200)

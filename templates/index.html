@@ -44,26 +44,30 @@
     		 <h4>Now {% if status.state = "play" %}playing{% else %} stopped {% endif %}</h4>
    			
    			 {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
-    		 <span id="playing">#{{ current_song.id }} {{ current_song.title }}</span><br/>
+    		 <span id="playing">{{ current_song.title }}</span><br/>
     		 {% if current_song.album %}<span id="album">Album: {{ current_song.album }} {% if current_song.date %} ({{ current_song.date }}){% endif %}</span><br/>{% endif %}
     		 File: /music/{{ current_song.file }}<br/>
 			<br/>
-			<div class="controls">
-				<a href="/control/pause">
-					<img src="/media/images/pause.png"/>
-				</a>
-				<a href="/control/stop">
-					<img src="/media/images/stop.png"/>
-				</a>
-				<a href="/control/play">
-					<img src="/media/images/play.png"/>
-				</a>
-			</div>
-			<br/>
+			
 			<div>
-				<a class="button" id="dislike">Dislike</a>
-				<a class="button" id="like">Like</a>
+			   <div class="right tright half">
+					<a class="button reddy dislike" alt="{{ current_song.id }}">Dislike</a>
+					<a class="button greeny like" alt="{{ current_song.id }}">Like</a>
+ 			   </div>
+ 			   <div class="left half">
+					<a class="button" href="/control/pause">
+						<img src="/media/images/pause.png"/>
+					</a>
+					<a class="button" href="/control/stop">
+						<img src="/media/images/stop.png"/>
+					</a>
+					<a class="button" href="/control/play">
+						<img src="/media/images/play.png"/>
+					</a>
+			    </div>
+			    <div class="clear"></div>
 			</div>
+			
     	</div>    
     	{% endif %}		 
 
@@ -72,15 +76,9 @@
     	 <h4>Next</h4>
     		{% if next_song.artist %}<span id="artist">{{ next_song.artist }}</span>{% endif %}<br/>
     		<span id="playing">#{{ next_song.id }} {{ next_song.title }} ({{ next_song.album }})</span>
-    		<br/><br/>
-    		<div class="controls">
-				<a href="/play/{{ next_song.id }}">
-					<img src="/media/images/play.png"/>
-				</a>
-			</div>
     	</div>
     	{% endif %}
-    	    		 	<section>
+    	    	<section>
 				  <span class="tooltip"></span>
 				  <div id="slider"></div>
 				  <span class="volume"></span>
@@ -99,12 +97,18 @@
       <div class="inner" id="content_container">
         {% block "content" %}
         <div class="poster">
-           <h2>Playlist</h2>
-           <ol>
+           <h2>Playlist</h2>    
            	{% for song in playlist  %}
-           		<li {% if song.pos = current_song.pos %} id="current" {% endif %}  value="{{ song.id }}" ><a href="/play/{{ song.id}}">{{ song.title }}</a></li>
+           		<div class="box song link" {% if song.pos = current_song.pos %} id="current" {% else %} href="/play/{{ song.id }}" {% endif %} alt="{{ song.id }}">
+           		   <div class="right tright half small">
+						<a class="button reddy dislike" alt="{{ song.id }}">Dislike</a>
+						<a class="button greeny like" alt="{{ song.id }}">Like</a>
+ 			   		</div>
+           		    <b>{{ song.title }}</b><br/>
+           		    <span class="small">Artist: {{ song.artist }}</span><br/>
+           		    <span class="small">FIle: {{ song.file }}</span>
+           		</div>
            	{% endfor %}
-           </ol>
         </div>
         {% endblock %}
         	{% if not user.is_authenticated %}

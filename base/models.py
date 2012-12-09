@@ -1,5 +1,7 @@
+#-*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 def user_profile(user):
     profile = None
@@ -44,12 +46,19 @@ class Track(models.Model):
     likes = models.IntegerField(default=1)
     dislikes = models.IntegerField(default=0)
     
+    def filename(self):
+        return os.path.basename(self.file.name)
+    
     def like(self, count):
-        self.likes += 1
+        self.likes += count
+        profile = user_profile(self.user)
+        profile.give(1)
         self.save()
         
     def dislike(self, count):
-        self.dislikes -= 1
+        self.dislikes += count
+        profile = user_profile(self.user)
+        profile.take(1)
         self.save()
 
     def __unicode__(self):

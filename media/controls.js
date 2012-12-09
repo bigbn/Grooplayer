@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	forms_handler();
+	links_handler();
+	likes();
+	dislikes();
 });
 
 $(function() {
@@ -40,6 +43,14 @@ $(function() {
   });
 });
 
+links_handler = function() {
+    $(".link").click(function(e) {
+        if (!$(e.target).hasClass('.link')) {
+        var url =  $(this).attr("href");
+        if (url != undefined) window.location = url;
+        }
+    });
+}
 
 forms_handler = function() 
 {	
@@ -59,4 +70,27 @@ forms_handler = function()
 	});
 	
 	if ($(".form").attr("opened") == "true") $(".expand").click();
+}
+
+function likes() {
+	$(".like").click(function(event) {
+	    event.stopPropagation();
+	    var elem = $(this);
+	    elem.hide("normal");
+		$.post("/japi/like", { id: $(this).attr('alt') } , function(data) {
+		elem.show("normal")
+		});
+	});
+}
+
+
+function dislikes() {
+	$(".dislike").click(function(event) {
+	    event.stopPropagation();
+	    var elem = $(this);
+	    elem.hide("normal");
+		$.post("/japi/dislike", { id: $(this).attr('alt') } , function(data) {
+		elem.show("normal")
+		});
+	});
 }
