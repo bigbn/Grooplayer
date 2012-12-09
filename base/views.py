@@ -20,7 +20,7 @@ def profile(request):
         if form.is_valid():
             instance = form.save(commit=True)
             client.update()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/profile/')
     else:
         form = TrackForm(user=request.user)
         

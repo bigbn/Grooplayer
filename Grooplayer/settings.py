@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Your Name', 'bigbn@mail.ru'),
 )
 
 MANAGERS = ADMINS
@@ -161,7 +161,7 @@ logging.basicConfig(
 )
 
 # MPD Settings
-MPD_SERVER = "192.168.0.100"
+MPD_SERVER = "127.0.0.1"
 MPD_PORT = "6600"
 
 #User Registration

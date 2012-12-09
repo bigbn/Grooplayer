@@ -36,7 +36,10 @@ def like(request):
             track = Track.objects.filter(file__endswith=filename)[0]
             track.like(1)
             profile = user_profile(request.user)
-            profile.take(1)
+            if request.user == track.user:
+                profile.take(3)
+            else:
+                profile.take(1)
 
     return HttpResponse(status=200)
 
