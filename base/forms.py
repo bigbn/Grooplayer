@@ -10,6 +10,7 @@ class TrackForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')
         super(TrackForm, self).__init__(*args, **kwargs)
+        self.fields['file'].widget.attrs.update({'accept': 'audio/mpeg'})
 
     def save(self, commit=True):
         inst = super(TrackForm, self).save(commit=False)

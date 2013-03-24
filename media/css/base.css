@@ -1,8 +1,8 @@
 html {height: 100%; background: #000 url("/media/images/style.jpg") no-repeat fixed left top; background-size: 100%; color: #F1F3C4; font-family: Play, sans-serif}
-body {height: 96%; margin: 1% 2%; width: 96%}
+body {height: 96%; margin: 1em 2em; width: 96%}
 p{color: #A1C3B4;}
 h1 {color: white; margin-right: 0; padding-right: 0;}
-small {color: #63734F}
+small {color: #83A36F}
 h1 span {color: #EFEF9E}
 h3:first-letter{text-transform:uppercase}
 
@@ -26,8 +26,8 @@ h3:first-letter{text-transform:uppercase}
 .song:hover {background: rgba(255,255,230,0.3);}
 #navigator {width: 35%; float: left; text-align: left; position: fixed; }
 a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-right: 2%}
-#content {width: 670px; float: left; text-align: justify;  margin-left: 36%}
-#content .inner {padding: 1% 5%; background: rgba(255,255,255,0.06); border-radius: 4px; }
+#content {width: 54%; float: left; text-align: justify;  margin-left: 33%}
+#content .inner {padding: 1em 1em; background: rgba(255,255,255,0.06); border-radius: 2px; }
 #content img {border: solid black 4px}
 
 #logo {font-size: 2.3em;color: #FFEFAA; font-family: Comfortaa;}
@@ -38,14 +38,14 @@ a.menu {display: block; font-size: 24px; color: #EFEFEE; float: left; margin-rig
 .errorlist {color: red; margin: 0; padding: 0; list-style: none; font-size: small; margin-left: 21%}
 
 li a{color: #AABB99; text-decoration: none}
-.playing {border-radius: 4px; background: rgba(255,225,215,0.2); padding: 5% 5%; margin-right: 5%; width: 80%; font-size: small; margin-bottom: 5%}
-.playing h4 {margin: 0; margin-bottom: 5%; text-decoration: none; display: block; border-radius: 3px; background: rgba(255,255,255,0.1); padding: 1%; color: white}
-.controls {text-decoration: none; display: block; border-radius: 3px; background: rgba(255,255,255,0.1); color: white; text-align: right}
+.playing {border-radius: 2px; background: rgba(255,225,215,0.2); padding: 1em 1em; margin-right: 1em; width: 80%; font-size: small; margin-bottom: 1em}
+.playing h4 {margin: 0; margin-bottom: 1em; text-decoration: none; display: block; border-radius: 1px; background: rgba(255,255,255,0.1); padding: 1%; color: white}
+.controls {text-decoration: none; display: block; border-radius: 1px; background: rgba(255,255,255,0.1); color: white; text-align: right}
 .controls img {vertical-align: top}
-.playing #playing {border-radius: 4px; color: white; font-size: 2em}
+.playing #playing {border-radius: 2px; color: white; font-size: 1.5em}
 
 #next_song {background: rgba(255,225,215,0.1)}
-.box{border-radius: 4px; background: rgba(255,225,215,0.2); padding: 2% 2%; width: 92%; margin-bottom: 2%}
+.box{border-radius: 2px; background: rgba(255,225,215,0.2); padding: 1em 1em; width: 92%; margin-bottom: 1em}
 
 section {
   width: 150px;
@@ -118,3 +118,6 @@ section {
   height: 100%;
   border-radius: 25px;
 }
+
+#track_info {float: left; width: 68%; margin-right: 2%}
+#track_image {float: left; width: 30%}

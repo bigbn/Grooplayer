@@ -5,6 +5,27 @@ from base.models import Action,Track,user_profile
 import Grooplayer.settings
 import mpd
 import logging
+import simplejson as json
+
+@csrf_exempt
+def playlist(request):
+    client = mpd.MPDClient()
+    client.timeout = 10
+    client.idletimeout = None
+    client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+    playlist = client.playlistinfo()
+    response=json.dumps(playlist)
+    return HttpResponse(response)
+
+@csrf_exempt
+def library(request):
+    client = mpd.MPDClient()
+    client.timeout = 10
+    client.idletimeout = None
+    client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+    library = client.listallinfo()
+    response=json.dumps(library)
+    return HttpResponse(response)
 
 @csrf_exempt
 def volume(request):
@@ -65,4 +86,18 @@ def dislike(request):
 def karma(request):
     #profile = user_profile(request.user)
     #profile.carma
+    return HttpResponse(status=200)
+
+@csrf_exempt
+def toogle_block(request):
+    if request.method == "POST":
+        if request.POST["id"]:
+            pk = request.POST["id"]       
+            track = Track.objects.get(pk=pk)
+            if track.is_blocked:
+                track.is_blocked = False
+            else:
+                track.is_blocked = True
+            track.save()
+ 
     return HttpResponse(status=200)

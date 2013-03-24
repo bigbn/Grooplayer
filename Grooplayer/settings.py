@@ -1,8 +1,10 @@
 # Django settings for Grooplayer project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+PROJECT_ROOT = "/home/groo"# os.path.abspath(os.path.dirname(__file__))
 ADMINS = (
     # ('Your Name', 'bigbn@mail.ru'),
 )
@@ -12,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(PROJECT_ROOT, 'sqlite.db'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -45,12 +47,13 @@ USE_TZ=False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'media'
+#MEDIA_ROOT = 'media'
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'media'
+MEDIA_URL = 'media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -93,9 +96,20 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'johnny.middleware.LocalStoreClearMiddleware',
+    'johnny.middleware.QueryCacheMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+CACHES = {
+    'default' : dict(
+        BACKEND = 'johnny.backends.memcached.MemcachedCache',
+        LOCATION = ['127.0.0.1:11211'],
+        JOHNNY_CACHE = True,
+    )
+}
+JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_myproj'
 
 ROOT_URLCONF = 'Grooplayer.urls'
 
@@ -103,7 +117,8 @@ ROOT_URLCONF = 'Grooplayer.urls'
 WSGI_APPLICATION = 'Grooplayer.wsgi.application'
 
 TEMPLATE_DIRS = (
-    'templates',
+    #'templates',
+    os.path.join(PROJECT_ROOT, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -170,12 +185,12 @@ LOGIN_URL = "/login/"
 ACCOUNT_ACTIVATION_DAYS = 2
 
 AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'grooplayer@gmail.com'
-EMAIL_HOST_PASSWORD = 'groogroo'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'grooplayer@gmail.com'
+EMAIL_HOST = '192.168.17.24'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'DIRECTUM\ts1'
+EMAIL_HOST_PASSWORD = '1pass1-'
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'ts1@directum.ru'
 
 #Exteneded user profile
 AUTH_PROFILE_MODULE = 'base.UserProfile'

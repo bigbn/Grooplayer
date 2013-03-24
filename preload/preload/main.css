@@ -1,0 +1,11 @@
+html {background: #000; color: white; font-family: 'Arial', sans-serif; font-size: 18px}
+.author {color: #4FF; font-weight: bold; font-size: .8em;}
+.title {color: #FFF; font-weight: bold; font-size: .7em;}
+.jidget {background: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(0,0,0,0.5); padding: .1em .2em; border-radius: .1em; margin-bottom: 1px}
+.clear {clear: both}
+#player {width: 60%; margin: 5% auto; background: rgba(0,0,0,0.2); min-height: 100px}
+#library {display: none}
+#playlist.{display: none}
+
+#controls {float: left; width: 40%;}
+#listing {float: left; width: 60%;}

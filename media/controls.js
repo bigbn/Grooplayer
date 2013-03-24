@@ -3,6 +3,7 @@ $(document).ready(function() {
 	links_handler();
 	likes();
 	dislikes();
+	locks();
 });
 
 $(function() {
@@ -94,3 +95,18 @@ function dislikes() {
 		});
 	});
 }
+
+function locks() {
+	$(".block").click(function(event) {
+	    event.stopPropagation();
+	    var elem = $(this);
+	    elem.hide("normal");
+		$.post("/japi/toogle_block", { id: $(this).attr('alt') } , function(data) {
+		if (elem.text() == "Lock") { elem.text("Unlock"); elem.removeClass("reddy"); elem.addClass("greeny"); }
+		else { elem.text("Lock"); elem.removeClass("greeny"); elem.addClass("reddy"); }
+		elem.show("normal")
+		});
+	});
+}
+
+

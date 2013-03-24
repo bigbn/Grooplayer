@@ -9,10 +9,11 @@
            	{% for song in tracks  %}
            		<div class="box" value="{{ song.id }}" >
            			<div class="right tright half">
+						<a class="button {% if song.is_blocked %}greeny{% else %}reddy{% endif %} block" alt="{{ song.id }}">{% if song.is_blocked %}UnLock{% else %}Lock{% endif %}</a>
 						<a class="button reddy dislike">{{ song.dislikes }}</a>
 						<a class="button greeny like">{{ song.likes }}</a>
 					</div>
-           			{{ song.filename }}
+           			<small>{{ song.filename }}</small>
            			<div class="clean"></div>
            		</div>
            	{% endfor %}

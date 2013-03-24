@@ -5,7 +5,7 @@ import Grooplayer.settings
 import mpd
 from django.http import HttpResponseRedirect
 from forms import TrackForm
-from ID3 import *
+#from ID3 import *
 import logging
 
 @render_to("profile.html")

@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 import settings
+from django.views.generic import TemplateView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -19,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
     url(r'^accounts/', include('registration.urls')),
     url(r'^admin/', include(admin.site.urls)),
+#    url(r'^faq/$', TemplateView.as_view(template_name="faq.html")
 )

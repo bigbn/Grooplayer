@@ -5,4 +5,5 @@
 *.db
 *.mp3
 *.flac
+run
 local_settings.py

@@ -9,21 +9,28 @@
         <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
  
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+
+	<script type="text/javascript" src="/media/lastfm.api.md5.js"></script>
+	<script type="text/javascript" src="/media/lastfm.api.js"></script>
+	<script type="text/javascript" src="/media/lastfm.api.cache.js"></script>
+
+
 	    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 	    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-        <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
         <script language="JavaScript"  type="text/javascript" src="/media/controls.js"></script>
         <script language="JavaScript"  type="text/javascript" src="/media/jquery.raty.min.js"></script>
 
-        <link rel="stylesheet" href="/media/css/base.css" media="all">
+	        <link rel="stylesheet" href="/media/css/base.css" media="all">
         <link rel="stylesheet" href="/media/css/s" media="all">
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
         <script>
         	current_song_file = "{{ current_song.file }}";
+        	current_song_artist = "{{ current_song.artist }}";
       		$(document).ready(function(){
         		$( "#slider" ).slider( "value", {{ status.volume }} );
         	});
         </script>
+        <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
     </head>
 
 <body>
@@ -33,24 +40,28 @@
         <a class="menu" href="/">Playlist</a>
         <a class="menu" href="/library/">Library</a>
         <a class="menu" href="/profile/">Profile</a>       
+        <a class="menu" href="/faq/">FAQ</a>       
         <div class="clear"></div>
         <br/><br/>
         
         {% if current_song %}
         <div class="playing" id="current_song">
-           	<div style="height: 100%; position: absolute; font-size: 8em; text-align: right; margin-left: 12%; z-index: -2; color: rgba(255,255,255,0.06)">
-    			{{ status.bitrate }}
-    		</div>
+           	 
     		 <h4>Now {% if status.state = "play" %}playing{% else %} stopped {% endif %}</h4>
-   			
+			<div id="track_info">
    			 {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
     		 <span id="playing">{{ current_song.title }}</span><br/>
     		 {% if current_song.album %}<span id="album">Album: {{ current_song.album }} {% if current_song.date %} ({{ current_song.date }}){% endif %}</span><br/>{% endif %}
-    		 File: /music/{{ current_song.file }}<br/>
-			<br/>
-			
+    		 <small>File: /music/{{ current_song.file }}</small>
+			</div>
+			<div id="track_image">
+				&nbsp;
+			</div>
+			<br class="clear" />
+			<div style="height: .7em"></div>
 			<div>
 			   <div class="right tright half">
+					<a class="button link" href="/media/music/{{ current_song.file }}">Download</a>
 					<a class="button reddy dislike" alt="{{ current_song.id }}">Dislike</a>
 					<a class="button greeny like" alt="{{ current_song.id }}">Like</a>
  			   </div>
@@ -66,6 +77,12 @@
 					</a>
 			    </div>
 			    <div class="clear"></div>
+<br/>
+<audio controls style="width:100%">
+  <source src="/media/music/{{ current_song.file }}" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> 
+ 
 			</div>
 			
     	</div>    
@@ -101,12 +118,13 @@
            	{% for song in playlist  %}
            		<div class="box song link" {% if song.pos = current_song.pos %} id="current" {% else %} href="/play/{{ song.id }}" {% endif %} alt="{{ song.id }}">
            		   <div class="right tright half small">
+						<a class="button link" href="/media/music/{{ song.file }}">Download</a>
 						<a class="button reddy dislike" alt="{{ song.id }}">Dislike</a>
 						<a class="button greeny like" alt="{{ song.id }}">Like</a>
  			   		</div>
            		    <b>{{ song.title }}</b><br/>
            		    <span class="small">Artist: {{ song.artist }}</span><br/>
-           		    <span class="small">FIle: {{ song.file }}</span>
+           		    <span class="small"><small>FIle: {{ song.file }}</small></span>
            		</div>
            	{% endfor %}
         </div>
