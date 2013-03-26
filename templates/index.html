@@ -1,139 +1,97 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/LocalBusiness">
     <head>
         <meta itemprop="image" content="/media/images/grooplayer.jpg">
         <meta charset="utf-8" />
-        <title>Grooplayer</title>
+        <title>{%  trans "Grooplayer" %}</title>
         <link id="favicon" rel="shortcut icon" href="/media/images/grooplayer.png">
-        <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
- 
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+       <!-- <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
 
-	<script type="text/javascript" src="/media/lastfm.api.md5.js"></script>
-	<script type="text/javascript" src="/media/lastfm.api.js"></script>
-	<script type="text/javascript" src="/media/lastfm.api.cache.js"></script>
+        <script type="text/javascript" src="/media/lastfm.api.md5.js"></script>
+        <script type="text/javascript" src="/media/lastfm.api.js"></script>
+        <script type="text/javascript" src="/media/lastfm.api.cache.js"></script>
+	    <script type="text/javascript" src="/media/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="/media/controls.js"></script>
+        <script type="text/javascript" src="/media/jquery.raty.min.js"></script>
 
-
-	    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-	    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-        <script language="JavaScript"  type="text/javascript" src="/media/controls.js"></script>
-        <script language="JavaScript"  type="text/javascript" src="/media/jquery.raty.min.js"></script>
-
-	        <link rel="stylesheet" href="/media/css/base.css" media="all">
+	    <link rel="stylesheet" href="/media/css/base.css" media="all">
         <link rel="stylesheet" href="/media/css/s" media="all">
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
         <script>
+            current_song_id = {{ current_song.id }}
         	current_song_file = "{{ current_song.file }}";
         	current_song_artist = "{{ current_song.artist }}";
-      		$(document).ready(function(){
-        		$( "#slider" ).slider( "value", {{ status.volume }} );
-        	});
+            $(document).ready(function(){
+            $('html, body').animate({
+                scrollTop: $(".current").offset().top - 70}, 2000);
+                });
         </script>
         <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
     </head>
 
 <body>
     <div id="navigator">
-	    <div id="logo"><a href="/">Grooplayer</a></div>
-        <a class="menu" href="/journal/">Journal</a>
-        <a class="menu" href="/">Playlist</a>
-        <a class="menu" href="/library/">Library</a>
-        <a class="menu" href="/profile/">Profile</a>       
-        <a class="menu" href="/faq/">FAQ</a>       
-        <div class="clear"></div>
-        <br/><br/>
-        
-        {% if current_song %}
-        <div class="playing" id="current_song">
-           	 
-    		 <h4>Now {% if status.state = "play" %}playing{% else %} stopped {% endif %}</h4>
-			<div id="track_info">
-   			 {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
-    		 <span id="playing">{{ current_song.title }}</span><br/>
-    		 {% if current_song.album %}<span id="album">Album: {{ current_song.album }} {% if current_song.date %} ({{ current_song.date }}){% endif %}</span><br/>{% endif %}
-    		 <small>File: /music/{{ current_song.file }}</small>
-			</div>
-			<div id="track_image">
-				&nbsp;
-			</div>
-			<br class="clear" />
-			<div style="height: .7em"></div>
-			<div>
-			   <div class="right tright half">
-					<a class="button link" href="/media/music/{{ current_song.file }}">Download</a>
-					<a class="button reddy dislike" alt="{{ current_song.id }}">Dislike</a>
-					<a class="button greeny like" alt="{{ current_song.id }}">Like</a>
- 			   </div>
- 			   <div class="left half">
-					<a class="button" href="/control/pause">
-						<img src="/media/images/pause.png"/>
-					</a>
-					<a class="button" href="/control/stop">
-						<img src="/media/images/stop.png"/>
-					</a>
-					<a class="button" href="/control/play">
-						<img src="/media/images/play.png"/>
-					</a>
-			    </div>
-			    <div class="clear"></div>
-<br/>
-<audio controls style="width:100%">
-  <source src="/media/music/{{ current_song.file }}" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio> 
- 
-			</div>
-			
-    	</div>    
-    	{% endif %}		 
+        <a class="menu tab current_tab">{% trans "Плеер" %}</a>
+        <a class="menu tab">{% trans "Библиотека" %}</a>
+        <a class="menu tab">{% trans "Журнал" %}</a>
+        <a class="menu tab">{% trans "Профиль" %}</a>
+        <a class="menu tab">{% trans "FAQ" %}</a>
 
-		{% if next_song %}
-    	<div class="playing" id="next_song">
-    	 <h4>Next</h4>
-    		{% if next_song.artist %}<span id="artist">{{ next_song.artist }}</span>{% endif %}<br/>
-    		<span id="playing">#{{ next_song.id }} {{ next_song.title }} ({{ next_song.album }})</span>
-    	</div>
-    	{% endif %}
-    	    	<section>
-				  <span class="tooltip"></span>
-				  <div id="slider"></div>
-				  <span class="volume"></span>
-				</section>
+        <div class="clear"></div>
+        <div id="tab_player" class="slide">
+            {% if current_song %}
+                <div class="playing" id="current_song">
+                     <!-- <h4>Now {% if status.state = "play" %}playing{% else %} stopped {% endif %}</h4> -->
+                    <div id="track_info">
+                     {% if current_song.artist %} <span id="artist">{{ current_song.artist }}</span><br/>{% endif %}
+                     <span id="playing">{{ current_song.title }}</span><br/>
+                     {% if current_song.album %}<span id="album">Album: {{ current_song.album }} {% if current_song.date %} ({{ current_song.date }}){% endif %}</span><br/>{% endif %}
+                     <small id="filename">File: /music/{{ current_song.file }}</small>
+
+                     <div id="last_info"></div>
+                    </div>
+                    <div id="track_image">
+                        &nbsp;
+                    </div>
+                    <br class="clear" />
+                    <div style="height: .7em"></div>
+                    <div>
+                        <div class="clear"></div>
+                        <br/>
+                        <audio autoplay controls style="width:100%">
+                            <source src="http://192.168.0.97:8000" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div id="tab_library" class="slide hidden"></div>
+        <div id="tab_journal" class="slide hidden"></div>
+        <div id="tab_profile" class="slide hidden">
+            <div id="login_form" class="extra_padding none" >
+                 <a class="button" id="register_link" href="/accounts/register/">Регистрация</a>
+                 <div class="form" url="/japi/login" callback="loginCallback" title="Вход" opened="false">
+                        {% csrf_token %}
+                        {{ login_form.as_ul }}
+                        <input type="hidden" name="next" value="/" />
+                </div>
+            </div>
+        </div>
+        <div id="tab_faq" class="slide hidden"></div>
     </div>
-   
+
     <div id="content">
-    {% block "user" %}
-     {% if user.is_authenticated %}
-	  <div class="inner" id="user">
- 		You are logged in as <b>{{ user.username }}</b>. Karma: <b>{{ carma }}</b></b>
-	  </div>
-	  {% endif %}
-	 {% endblock %}
-	  <br/>
       <div class="inner" id="content_container">
-        {% block "content" %}
         <div class="poster">
-           <h2>Playlist</h2>    
            	{% for song in playlist  %}
-           		<div class="box song link" {% if song.pos = current_song.pos %} id="current" {% else %} href="/play/{{ song.id }}" {% endif %} alt="{{ song.id }}">
-           		   <div class="right tright half small">
-						<a class="button link" href="/media/music/{{ song.file }}">Download</a>
-						<a class="button reddy dislike" alt="{{ song.id }}">Dislike</a>
-						<a class="button greeny like" alt="{{ song.id }}">Like</a>
- 			   		</div>
-           		    <b>{{ song.title }}</b><br/>
-           		    <span class="small">Artist: {{ song.artist }}</span><br/>
-           		    <span class="small"><small>FIle: {{ song.file }}</small></span>
+           		<div id="{{ song.id }}" class="song {% if song.pos = current_song.pos %} current"{% else %}" href="/play/{{ song.id }}" {% endif %} alt="{{ song.id }}">
+           		    <small><b>{{ song.artist }}</b> - {{ song.title }}</b></small>
            		</div>
            	{% endfor %}
         </div>
-        {% endblock %}
-        	{% if not user.is_authenticated %}
-				<a class="button login" href="/login/">Login</a>
-			{% else %}
-	        	<a class="button login" href="/logout/">Log out</a>
-      	    {% endif %}
       </div>
     </div>
 </body>

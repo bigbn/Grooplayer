@@ -3,12 +3,10 @@
 <h2>You are not logged in</h2>
 <div id="factions">
 	<a class="button" id="register_link" href="/accounts/register/">Registration</a>
-	
 	<div class="form" title="Login to Grooplayer" opened="false">
  		{% csrf_token %}
 		{{ form.as_ul }}
 		<input type="hidden" name="next" value="/" />
 	</div>
-
 </div>
 {% endblock %}

@@ -4,7 +4,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_ROOT = "/home/groo"# os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 ADMINS = (
     # ('Your Name', 'bigbn@mail.ru'),
 )
@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_ROOT, 'sqlite.db'),                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(PROJECT_ROOT, '../sqlite.db'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -48,7 +48,7 @@ USE_TZ=False
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 #MEDIA_ROOT = 'media'
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -96,20 +96,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'johnny.middleware.LocalStoreClearMiddleware',
-    'johnny.middleware.QueryCacheMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-CACHES = {
-    'default' : dict(
-        BACKEND = 'johnny.backends.memcached.MemcachedCache',
-        LOCATION = ['127.0.0.1:11211'],
-        JOHNNY_CACHE = True,
-    )
-}
-JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_myproj'
 
 ROOT_URLCONF = 'Grooplayer.urls'
 
@@ -118,7 +109,7 @@ WSGI_APPLICATION = 'Grooplayer.wsgi.application'
 
 TEMPLATE_DIRS = (
     #'templates',
-    os.path.join(PROJECT_ROOT, 'templates'),
+    os.path.join(PROJECT_ROOT, '../templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -176,7 +167,7 @@ logging.basicConfig(
 )
 
 # MPD Settings
-MPD_SERVER = "127.0.0.1"
+MPD_SERVER = "192.168.0.97"
 MPD_PORT = "6600"
 
 #User Registration
