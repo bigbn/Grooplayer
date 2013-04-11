@@ -5,6 +5,7 @@ import Grooplayer.settings
 import mpd
 from django.http import HttpResponseRedirect
 from forms import TrackForm
+from django.contrib.auth.forms import AuthenticationForm
 #from ID3 import *
 import logging
 
@@ -105,5 +106,8 @@ def mainpage(request, id=None, action=None):
         carma = profile.carma
     else:
         carma = "0"
-    
-    return {"playlist": playlist, "current_song": current_song, "next_song": next_song[0], "status": status , "carma": carma}
+
+    form = AuthenticationForm(request=request)
+
+    return {"playlist": playlist, "current_song": current_song, "next_song": next_song[0], "status": status , "carma": carma, "login_form": form}
+
