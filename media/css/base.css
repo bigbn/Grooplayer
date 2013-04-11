@@ -41,6 +41,7 @@ a.menu {cursor:pointer; display: block; font-size: 1.4em; color: #EFEFEE; float:
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21ffffff', endColorstr='#3d000000',GradientType=0 ); /* IE6-9 */
 
 }
+<<<<<<< HEAD
 #content {
 width: 37%;
 position: absolute;
@@ -51,6 +52,9 @@ z-index: 800;
 padding-top: 100%; margin-top: -100%; padding-bottom: 100%; margin-bottom: -100%;
 }
 
+=======
+#content {width: 37%; float: left; text-align: justify;  margin-left: 62%; border-radius: 1px; padding-top: 100%; margin-top: -100%; padding-bottom: 100%; margin-bottom: -100%; background: rgba(0,0,0,0.84);}
+>>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
 #content .inner {  border-radius: 1px; }
 #content img {border: solid black 4px}
 
@@ -79,11 +83,19 @@ li a{color: #AABB99; text-decoration: none}
 #track_image {float: left; width: 30%}
 #poster {z-index: 2}
 /* Slide */
+<<<<<<< HEAD
 .slide {z-index: -5; float: left; position: fixed; width: 58%; float: left; min-height: 400px; max-height: 600px; overflow-y: auto;  background: rgba(0,0,0,.44);  font-size: small; }
+=======
+.slide {z-index: -5; float: left; position: fixed; width: 58%; float: left; min-height: 400px; max-height: 400px; overflow-y: auto;  background: rgba(0,0,0,.44);  font-size: small; }
+>>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
 #current_song, .extra_padding {padding: 2% 4%}
 .placeholder {width: 100%; margin-top: 20%; text-align: center;color: rgba(255,255,255,0.5)}
 .none {display: none}
 .red {color: #ff3c00}
 .green {color: greenyellow}
 
+<<<<<<< HEAD
 .modal {position: fixed; left: 15%; top: 25%; width: 20%; text-align: center; border: rgba(255,255,255,.8) solid 2px; padding: 5%; background: rgba(0,0,0,.9)}
+=======
+.modal {position: fixed; left: 15%; top: 25%; width: 20%; text-align: center; border: rgba(255,255,255,.8) solid 2px; padding: 5%; background: rgba(0,0,0,.9)}
+>>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
