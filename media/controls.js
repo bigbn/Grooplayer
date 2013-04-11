@@ -262,6 +262,17 @@ function loginCallback(data) {
 function ShowError(msg) {
     var modal = "<div class='modal'>"+msg+"</div>";
     $("html").append(modal);
+<<<<<<< HEAD
+
+    setTimeout(function() {
+        $(".modal").fadeOut("slow",function() {
+            $("html").remove(".modal");
+        });
+    }, 3000);
+}
+
+setTimeout(function() {ShowError("Убедительная просьба. Не рассказывайте никому про радио, пока не будет отмашки!<br/> Спасибо!");},3000);
+=======
 
     setTimeout(function() {
         $(".modal").fadeOut("slow",function() {
@@ -269,3 +280,4 @@ function ShowError(msg) {
         });
     }, 2000);
 }
+>>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
