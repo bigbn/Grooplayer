@@ -19,4 +19,7 @@
         console.log(error);
 	}});
 
+
+    current_track = {};
+    refresh();
     setInterval(function() {refresh();}, 10000);

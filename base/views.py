@@ -6,6 +6,11 @@ import mpd
 from django.http import HttpResponseRedirect
 from forms import TrackForm
 from django.contrib.auth.forms import AuthenticationForm
+from registration.forms import RegistrationForm
+from django.middleware.csrf import get_token
+from ajaxuploader.views import AjaxFileUploader
+from Grooplayer.backends import TrackUploadBackend
+
 #from ID3 import *
 import logging
 
@@ -52,6 +57,13 @@ def library(request):
 
 @render_to("index.html")
 def mainpage(request, id=None, action=None):
+    """
+
+    :param request:
+    :param id:
+    :param action:
+    :return:
+    """
     client = mpd.MPDClient()
     client.timeout = 10
     client.idletimeout = None
@@ -107,7 +119,19 @@ def mainpage(request, id=None, action=None):
     else:
         carma = "0"
 
-    form = AuthenticationForm(request=request)
+    login_form = AuthenticationForm(request=request)
+    registration_form = RegistrationForm()
+    upload_form = TrackForm(user=request.user)
+    csrf_token = get_token(request)
 
-    return {"playlist": playlist, "current_song": current_song, "next_song": next_song[0], "status": status , "carma": carma, "login_form": form}
+    return {"playlist": playlist,
+            "current_song": current_song,
+            "next_song": next_song[0],
+            "status": status ,
+            "carma": carma,
+            "login_form": login_form,
+            "registration_form": registration_form,
+            "upload_form": upload_form,
+            'csrf_token': csrf_token}
 
+import_uploader = AjaxFileUploader(backend=TrackUploadBackend)

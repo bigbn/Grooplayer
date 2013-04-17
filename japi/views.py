@@ -8,6 +8,8 @@ import mpd
 import logging
 import simplejson as json
 from django.core import serializers
+from registration.forms import RegistrationForm
+from registration.backends.default import DefaultBackend
 
 @csrf_exempt
 def playlist(request):
@@ -28,6 +30,37 @@ def library(request):
     library = client.listallinfo()
     response=json.dumps(library)
     return HttpResponse(response)
+
+@csrf_exempt
+def control(request):
+    if request.method == "POST":
+        if request.POST["action"] is not None:
+            action =  request.POST["action"]
+            carma = None
+            client = None
+            if request.user.is_authenticated():
+                profile = user_profile(request.user)
+                carma = profile.carma
+                client = mpd.MPDClient()
+                client.timeout = 10
+                client.idletimeout = None
+                client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+            if action and carma is not None:
+                if request.user.is_authenticated():
+                    if action == "play" and carma > 0:
+                        client.play()
+                        profile.take(2)
+                        log(request.user, 'нажал на кнопку "Воспроизведение"')
+                    elif action == "stop" and carma > 0:
+                        client.stop()
+                        profile.take(2)
+                        log(request.user, 'нажал на кнопку "Стоп"')
+                    elif action == "pause" and carma > 0:
+                        client.pause()
+                        profile.take(2)
+                        log(request.user, 'нажал на кнопку "Пауза"')
+
+    return HttpResponse(status=200)
 
 @csrf_exempt
 def volume(request):
@@ -195,5 +228,38 @@ def profile_info(request):
               "username": username ,
               "tracks": tracks}
 
+    response = json.dumps(result)
+    return HttpResponse(response)
+
+def register(request):
+    is_registered = False
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            backend = DefaultBackend()
+            new_user = backend.register(request, **form.cleaned_data)
+            is_registered = True
+        else:
+            is_registered = False
+    else:
+        is_registered = False
+
+    result = {"Status": is_registered}
+    response = json.dumps(result)
+    return HttpResponse(response)
+
+@csrf_exempt
+def reload(request):
+    result = {"Status": True}
+    try:
+        client = mpd.MPDClient()
+        client.timeout = 10
+        client.idletimeout = None
+        client.connect(Grooplayer.settings.MPD_SERVER,Grooplayer.settings.MPD_PORT)
+        client.update()
+        client.close()
+        client.disconnect()
+    except:
+        result = {"Status": False}
     response = json.dumps(result)
     return HttpResponse(response)

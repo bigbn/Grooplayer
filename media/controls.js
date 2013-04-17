@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	forms_handler();
-	links_handler();
 	likes();
 	dislikes();
 	locks();
@@ -10,21 +8,38 @@ $(document).ready(function() {
     load_journal();
     load_profile();
     load_faq();
+
+
+    links_handler();
+    forms_handler();
+
+    client_reload();
 });
 
 function load_player() {
     $("#tab_player").prepend('<div class="totals">Воспроизведение' +
+        '<img id="client_status" class="left" src="/media/images/playing.gif" style="height: 24px"/>' +
         '<img class="right" src="/media/images/like.png"/>' +
         '<img class="right" src="/media/images/dislike.png"/>  ' +
         '<img class="right" src="/media/images/space.png"/>  ' +
-        '<img class="right" src="/media/images/down.png"/>' +
+        '<img id="download_link" class="right link" href="#" src="/media/images/down.png"/>' +
+        '<img class="right link" href="/media/grooplayer.asx" src="/media/images/mediaplayer.png"/>' +
+        '<img class="right link" href="/media/grooplayer.pls" src="/media/images/winamp.png"/>' +
         '<img class="right" src="/media/images/space.png"/>  ' +
-        '<img class="right" src="/media/images/pause.png"/> ' +
-        '<img class="right" src="/media/images/stop.png"/>' +
-        '<img class="right" src="/media/images/play.png"/>' +
+        '<img id="client_pause" alt="pause" class="control right" src="/media/images/pause.png"/> ' +
+        '<img id="client_stop" alt="stop" class="control right" src="/media/images/stop.png"/>' +
+        '<img id="client_play" alt="play" class="control right" src="/media/images/play.png"/>' +
         '</div>');
     $(".song").click(function(){
         change_song($(this).attr("id"));
+    });
+
+    $(".control").each(function(){
+       var action = $(this).attr("alt");
+       $(this).click(function() {
+           control(action);
+           showMessage(action);
+       });
     });
 }
 
@@ -32,11 +47,14 @@ function load_profile() {
     $.post("/japi/profile_info", {} , function(data) {
         var result = jQuery.parseJSON(data);
         if (!result.isAuthenticated) {
-            $("#tab_profile").prepend('<div class="totals" id="not_logged">Вы не вошли. <div class="right"><a>Войти</a></div></div>');
+            $("#tab_profile").find(".totals").remove();
+            $("#tab_profile").prepend('<div class="totals" id="not_logged">Вы не вошли. <div class="right"><a></a></div></div>');
             $("#login_form").show();
+            $("#profile").hide();
         }
         else {
             $("#login_form").hide();
+            $("#profile").show();
             $("#not_logged").hide();
             setup_profile_info(result);
         }
@@ -44,19 +62,22 @@ function load_profile() {
 }
 
 function setup_profile_info(data) {
+    $("#tab_profile").find(".totals").remove();
+    $("#tab_profile").find(".song").remove();
     $("#tab_profile").prepend('<div class="totals">Вы вошли как '+data["username"]+'.<div class="right">Карма: '+data["carma"]+'</div></div>');
     var tracks = jQuery.parseJSON(data.tracks);
     $.each(tracks,function(index,item) {
-        console.log(item);
         $("#tab_profile").append('<div class="song">'+item.fields.file+'' +
             '<div class="right"><span class="green">'+item.fields.likes+'</span>/<span class="red">'+item.fields.dislikes+'</span>&nbsp;' +
             '<img class="right" src="/media/images/lock'+item.fields.is_blocked+'.png"></div>' +
             '</div>');
+
     });
 }
 
 links_handler = function() {
     $(".link").click(function(e) {
+        console.log("nsa");
         if (!$(e.target).hasClass('.link')) {
         var url =  $(this).attr("href");
         if (url != undefined) window.location = url;
@@ -65,15 +86,20 @@ links_handler = function() {
 }
 
 forms_handler = function() 
-{	
-    $('<a class="expand button">'+$(".form").attr("title")+'</a>').insertBefore('.form');
-	$(".form").hide("normal");
+{
+
+    $(".form").each(function(index) {
+        $('<a class="expand button">'+$(this).attr("title")+'</a>').insertBefore($(this));
+        $(this).hide("normal");
+    });
 
 	$(".expand").live("click",function() {
-		$(".form").show("normal");
-		$(".expand").hide("normal");
-		$(".form").wrap('<form>');
-		$(".form").append('<br/><a class="submit button">Submit</a>');
+        var jForm = $(this).next(".form");
+	    jForm.show("normal");
+		$(this).hide("normal");
+		jForm.wrap('<form>');
+        jForm.prepend('<h2>'+jForm.attr("title")+'</h2>');
+		jForm.append('<br/><a class="submit button">OK</a>');
 		$("#register_link").hide("normal"); //костыль, но быстро
 	});
 	
@@ -168,7 +194,10 @@ function htmlspecialchars(string) {
 
 function refresh_info(track){
     console.log(track);
+    current_track = track;
     current_song_id = track.id;
+    $("#download_link").attr("href", "/media/music/"+track.file);
+
     $("#artist").fadeOut("normal").html(htmlspecialchars(track.artist)).fadeIn("normal");
     $("#playing").fadeOut("normal").html(htmlspecialchars(track.title)).fadeIn("normal");
     $("#album").fadeOut("normal").html(htmlspecialchars(track.album)).fadeIn("normal");
@@ -256,13 +285,30 @@ function loginCallback(data) {
     var result = jQuery.parseJSON(data);
     if (result.Status) {
         load_profile();
-    } else ShowError("Неправильные данные. Войти не получается.");
+    } else showMessage("Неправильные данные. Войти не получается.");
 }
 
-function ShowError(msg) {
+function refistrationCallback(data) {
+    var result = jQuery.parseJSON(data);
+    if (result.Status) {
+        showMessage("Успешная регистрация. Теперь можно пользоваться плеером. Запоминайте свои пароли, пожалуйста.");
+        $("#log_form").find("#id_username").val($("#reg_form").find("#id_username").val());
+        $("#log_form").find("#id_password").val($("#reg_form").find("#id_password1").val());
+        $("#log_form").prev("a.expand").click();
+        $("#log_form").find(".submit").click();
+    } else showMessage("Неправильные данные. Зарегистрировать не получается.");
+}
+
+function client_reload() {
+    $.post("/japi/reload", {} , function(data) {
+        console.log(data);
+    });
+}
+
+function showMessage(msg) {
     var modal = "<div class='modal'>"+msg+"</div>";
     $("html").append(modal);
-<<<<<<< HEAD
+
 
     setTimeout(function() {
         $(".modal").fadeOut("slow",function() {
@@ -271,13 +317,8 @@ function ShowError(msg) {
     }, 3000);
 }
 
-setTimeout(function() {ShowError("Убедительная просьба. Не рассказывайте никому про радио, пока не будет отмашки!<br/> Спасибо!");},3000);
-=======
-
-    setTimeout(function() {
-        $(".modal").fadeOut("slow",function() {
-            $("html").remove(".modal");
-        });
-    }, 2000);
+function control(action) {
+    $.post("/japi/control", {"action": action} , function(data) {
+        console.log(data);
+    });
 }
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d

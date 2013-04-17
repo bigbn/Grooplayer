@@ -12,5 +12,8 @@ urlpatterns = patterns('japi.views',
     (r'^change_track/?$', 'change_track'),
     (r'^journal/?$', 'journal'),
     (r'^login/?$', 'login'),
+    (r'^register/?$', 'register'),
+    (r'^reload/?$', 'reload'),
+    (r'^control/?$', 'control'),
     (r'^profile_info/?$', 'profile_info'),
  )

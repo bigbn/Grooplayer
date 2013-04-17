@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
     url(r'^accounts/$', include('registration.urls')),
     #url(r'^admin/$', admin.site.urls)
-    url(r'^lnadmin/', include(admin.site.urls))
+    url(r'^lnadmin/', include(admin.site.urls)),
+    url(r'^ajax-upload/$', 'base.views.import_uploader', name="my_ajax_upload"),
 )

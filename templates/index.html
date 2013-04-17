@@ -6,33 +6,62 @@
         <meta charset="utf-8" />
         <title>{%  trans "Grooplayer" %}</title>
         <link id="favicon" rel="shortcut icon" href="/media/images/grooplayer.png">
-<<<<<<< HEAD
         <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'> 
-=======
-       <!-- <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'> -->
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
 
         <script type="text/javascript" src="/media/lastfm.api.md5.js"></script>
         <script type="text/javascript" src="/media/lastfm.api.js"></script>
         <script type="text/javascript" src="/media/lastfm.api.cache.js"></script>
 	    <script type="text/javascript" src="/media/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="/media/controls.js"></script>
-        <script type="text/javascript" src="/media/jquery.raty.min.js"></script>
 
-	    <link rel="stylesheet" href="/media/css/base.css" media="all">
-        <link rel="stylesheet" href="/media/css/s" media="all">
+        <script type="text/javascript" src="/media/vendor/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="/media/jquery.iframe-transport.js"></script>
+        <script type="text/javascript" src="/media/jquery.fileupload.js"></script>
+
+	    <link rel="stylesheet" href="/media/css/base.css" media="all"/>
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
         <script>
             current_song_id = {{ current_song.id }}
         	current_song_file = "{{ current_song.file }}";
         	current_song_artist = "{{ current_song.artist }}";
             $(document).ready(function(){
-            $('html, body').animate({
+                $('html, body').animate({
                 scrollTop: $(".current").offset().top - 70}, 2000);
-                });
+            });
         </script>
+
+        <script src="/media/fileuploader.js" ></script>
+        <link href="/media/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+        <script>
+            $(function(){
+                var uploader = new qq.FileUploader({
+                    action: "/ajax-upload/",
+                    element: $('#file-uploader')[0],
+                    multiple: true,
+                    onComplete: function(id, fileName, responseJSON) {
+                        if(responseJSON.success) {
+                            console.log(responseJSON);
+                        } else {
+                            alert("upload failed!");
+                        }
+                    },
+                    onAllComplete: function(uploads) {
+                        // uploads is an array of maps
+                        // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                        client_reload();
+                        showMessage("Загрузка завершена");
+                        load_profile();
+                    },
+                    params: {
+                        'csrf_token': '{{ csrf_token }}',
+                        'csrf_name': 'csrfmiddlewaretoken',
+                        'csrf_xname': 'X-CSRFToken'
+                    }
+                });
+            });
+        </script>
+
         <script language="JavaScript"  type="text/javascript" src="/media/base.js"></script>
     </head>
 
@@ -66,11 +95,7 @@
                         <div class="clear"></div>
                         <br/>
                         <audio autoplay controls style="width:100%">
-<<<<<<< HEAD
-                            <source src="http://192.168.35.29:8000" />
-=======
-                            <source src="http://192.168.0.97:8000" />
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
+                            <source src="http://192.168.0.102:8000" />
                             Your browser does not support the audio element.
                         </audio>
                     </div>
@@ -81,12 +106,21 @@
         <div id="tab_journal" class="slide hidden"></div>
         <div id="tab_profile" class="slide hidden">
             <div id="login_form" class="extra_padding none" >
-                 <a class="button" id="register_link" href="/accounts/register/">Регистрация</a>
-                 <div class="form" url="/japi/login" callback="loginCallback" title="Вход" opened="false">
+
+                <div class="form" id="reg_form" url="/japi/register" callback="refistrationCallback" title="Регистрация" opened="false">
+                    {% csrf_token %}
+                    {{ registration_form.as_ul }}
+                    <input type="hidden" name="next" value="/" />
+                </div>
+
+                <div class="form" id="log_form" url="/japi/login" callback="loginCallback" title="Вход" opened="false">
                         {% csrf_token %}
                         {{ login_form.as_ul }}
                         <input type="hidden" name="next" value="/" />
                 </div>
+            </div>
+            <div id="profile" class="none">
+                <div id="file-uploader"></div>
             </div>
         </div>
         <div id="tab_faq" class="slide hidden"></div>

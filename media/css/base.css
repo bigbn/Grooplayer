@@ -10,8 +10,8 @@ h3:first-letter{text-transform:uppercase}
 .form ul, .form li {display: block; padding: none; margin: none}
 .form label {display: block; width: 20%; float: left;  margin-right: 1%}
 .submit {margin-left: 21%;}
-.button {padding: 1%; background: rgba(0,0,0,0.4); border-radius: 3px; text-align: center; line-height: 200%; cursor: pointer; text-decoration: none; color: #ddedFd; margin-right: 1px}
-.button:hover {padding: 1%; background: rgba(255,255,255,0.4); border-radius: 3px; border: solid 1px rgba(0,0,0,0.4);; line-height: 200%; cursor: pointer}
+.button {padding: 1%; background: rgb(88, 18, 169); border-radius: 3px; text-align: center; line-height: 200%; cursor: pointer; text-decoration: none; color: #ddedFd; margin-right: 1px}
+.button:hover {padding: 1%; background: rgba(88, 18, 169, 0.64); border-radius: 3px; line-height: 200%; cursor: pointer}
 .button img {vertical-align: top}
 .left {float: left}
 .right {float: right }
@@ -24,14 +24,15 @@ h3:first-letter{text-transform:uppercase}
 .small {font-size: small}
 .half {width: 50%}
 .song:hover {background: rgba(255,255,230,0.3);}
-
+a {color: #91b4ff
+}
 #navigator {width: 58%; position: fixed}
 
 a.menu {cursor:pointer; display: block; font-size: 1.4em; color: #EFEFEE; float: left;
     margin-right: 1px;
     text-decoration: none;
     border-radius: 1px;
-    padding: 1% 1%;
+    padding: 1% 2%;
     background: -moz-linear-gradient(top,  rgba(255,255,255,0.13) 0%, rgba(0,0,0,0.24) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.13)), color-stop(100%,rgba(0,0,0,0.24))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  rgba(255,255,255,0.13) 0%,rgba(0,0,0,0.24) 100%); /* Chrome10+,Safari5.1+ */
@@ -41,7 +42,7 @@ a.menu {cursor:pointer; display: block; font-size: 1.4em; color: #EFEFEE; float:
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21ffffff', endColorstr='#3d000000',GradientType=0 ); /* IE6-9 */
 
 }
-<<<<<<< HEAD
+
 #content {
 width: 37%;
 position: absolute;
@@ -51,10 +52,11 @@ background: rgba(0, 0, 0, 0.84);
 z-index: 800;
 padding-top: 100%; margin-top: -100%; padding-bottom: 100%; margin-bottom: -100%;
 }
+.bar {
+    height: 18px;
+    background: green;
+}
 
-=======
-#content {width: 37%; float: left; text-align: justify;  margin-left: 62%; border-radius: 1px; padding-top: 100%; margin-top: -100%; padding-bottom: 100%; margin-bottom: -100%; background: rgba(0,0,0,0.84);}
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
 #content .inner {  border-radius: 1px; }
 #content img {border: solid black 4px}
 
@@ -83,19 +85,14 @@ li a{color: #AABB99; text-decoration: none}
 #track_image {float: left; width: 30%}
 #poster {z-index: 2}
 /* Slide */
-<<<<<<< HEAD
-.slide {z-index: -5; float: left; position: fixed; width: 58%; float: left; min-height: 400px; max-height: 600px; overflow-y: auto;  background: rgba(0,0,0,.44);  font-size: small; }
-=======
-.slide {z-index: -5; float: left; position: fixed; width: 58%; float: left; min-height: 400px; max-height: 400px; overflow-y: auto;  background: rgba(0,0,0,.44);  font-size: small; }
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d
+
+.slide {z-index: -5; float: left; position: fixed; width: 58%; float: left; min-height: 400px; max-height: 400px; overflow-y: auto;  background: rgba(0,0,0,.44) url("/media/images/grid.png") right bottom no-repeat;  font-size: small; }
+
 #current_song, .extra_padding {padding: 2% 4%}
 .placeholder {width: 100%; margin-top: 20%; text-align: center;color: rgba(255,255,255,0.5)}
 .none {display: none}
 .red {color: #ff3c00}
 .green {color: greenyellow}
 
-<<<<<<< HEAD
+
 .modal {position: fixed; left: 15%; top: 25%; width: 20%; text-align: center; border: rgba(255,255,255,.8) solid 2px; padding: 5%; background: rgba(0,0,0,.9)}
-=======
-.modal {position: fixed; left: 15%; top: 25%; width: 20%; text-align: center; border: rgba(255,255,255,.8) solid 2px; padding: 5%; background: rgba(0,0,0,.9)}
->>>>>>> bd2fab358dbaa2d03656137ccd87def80e3e313d

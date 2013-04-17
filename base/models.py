@@ -42,7 +42,7 @@ class Track(models.Model):
     user = models.ForeignKey(User)
     date = models.DateTimeField(u'Date', auto_now_add=True)
     title = models.CharField(u'Title', max_length=300, null=True, blank=True)
-    file = models.FileField(u'Track',upload_to = 'music',blank=False, null=False, max_length=300, )
+    file = models.FileField(u'Track', upload_to='music', blank=False, null=False, max_length=300, )
     likes = models.IntegerField(default=1)
     dislikes = models.IntegerField(default=0)
     is_blocked = models.BooleanField(default=False)
