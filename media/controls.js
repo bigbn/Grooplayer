@@ -18,11 +18,11 @@ $(document).ready(function() {
 
 function load_player() {
     $("#tab_player").prepend('<div class="totals">Воспроизведение' +
-        '<img id="client_status" class="left" src="/media/images/playing.gif" style="height: 24px"/>' +
-        '<img class="right" src="/media/images/like.png"/>' +
-        '<img class="right" src="/media/images/dislike.png"/>  ' +
+        '<img id="client_status" class="left" src="/media/images/'+current_song_state+'ing.gif" style="height: 24px"/>' +
+        '<img class="right rate" alt="like" src="/media/images/like.png"/>' +
+        '<img class="right rate" alt="dislike" src="/media/images/dislike.png"/>  ' +
         '<img class="right" src="/media/images/space.png"/>  ' +
-        '<img id="download_link" class="right link" href="#" src="/media/images/down.png"/>' +
+        '<img id="download_link" class="right link" href="/media/music/'+current_song_file+'" src="/media/images/down.png"/>' +
         '<img class="right link" href="/media/grooplayer.asx" src="/media/images/mediaplayer.png"/>' +
         '<img class="right link" href="/media/grooplayer.pls" src="/media/images/winamp.png"/>' +
         '<img class="right" src="/media/images/space.png"/>  ' +
@@ -40,6 +40,14 @@ function load_player() {
            control(action);
            showMessage(action);
        });
+    });
+
+    $(".rate").each(function(){
+        var action = $(this).attr("alt");
+        var id=current_song_id;
+        $(this).click(function() {
+            rate(action,id);
+        });
     });
 }
 
@@ -321,4 +329,18 @@ function control(action) {
     $.post("/japi/control", {"action": action} , function(data) {
         console.log(data);
     });
+}
+
+
+function rate(action,id) {
+    if (action == "like") {
+        $.post("/japi/like", { id: id } , function(data) {
+            showMessage("Спасибо! Ваш голос учтен.")
+        });
+    }
+    if (action == "dislike") {
+        $.post("/japi/dislike", { id: id } , function(data) {
+            showMessage("Спасибо! Ваш голос учтен.")
+        });
+    }
 }

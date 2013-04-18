@@ -70,6 +70,7 @@ padding-top: 100%; margin-top: -100%; padding-bottom: 100%; margin-bottom: -100%
 .login {top: 1%; right: 1%; position: fixed}
 .errorlist {color: red; margin: 0; padding: 0; list-style: none; font-size: small; margin-left: 21%}
 
+.tab {font-family: 'Ubuntu Condensed', sans-serif;}
 li a{color: #AABB99; text-decoration: none}
 .playing {border-radius: 2px;  padding: 1em 1em; margin-right: 1em;  font-size: small; margin-bottom: 1em}
 .playing h4 {margin: 0; margin-bottom: 1em; text-decoration: none; display: block; border-radius: 1px; background: rgba(255,255,255,0.1); padding: 1%; color: white}

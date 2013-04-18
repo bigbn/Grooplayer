@@ -7,7 +7,8 @@
         <title>{%  trans "Grooplayer" %}</title>
         <link id="favicon" rel="shortcut icon" href="/media/images/grooplayer.png">
         <link href='http://fonts.googleapis.com/css?family=Play:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'> 
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
         <script type="text/javascript" src="/media/lastfm.api.md5.js"></script>
         <script type="text/javascript" src="/media/lastfm.api.js"></script>
@@ -25,6 +26,7 @@
             current_song_id = {{ current_song.id }}
         	current_song_file = "{{ current_song.file }}";
         	current_song_artist = "{{ current_song.artist }}";
+            current_song_state = "{{ status.state }}";
             $(document).ready(function(){
                 $('html, body').animate({
                 scrollTop: $(".current").offset().top - 70}, 2000);

@@ -1,0 +1,12 @@
+<ASX version="3.0">
+
+<Entry>
+<ref HREF="http://192.168.0.100:8000"/>
+
+<Banner HREF="http://192.168.35.29/media/images/logo.png">
+<Abstract>GrooPlayer</Abstract>
+<MoreInfo href = "http://192.168.35.29" />
+</Banner>
+
+</Entry>
+</ASX>
