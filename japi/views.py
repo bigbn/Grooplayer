@@ -164,7 +164,6 @@ def change_track(request):
     if request.method == "POST":
         if request.POST["id"]:
             pk = request.POST["id"]
-
             client = mpd.MPDClient()
             client.timeout = 10
             client.idletimeout = None

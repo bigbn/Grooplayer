@@ -20,7 +20,8 @@
         <script type="text/javascript" src="/media/jquery.iframe-transport.js"></script>
         <script type="text/javascript" src="/media/jquery.fileupload.js"></script>
 
-	    <link rel="stylesheet" href="/media/css/base.css" media="all"/>
+        <link href="/media/images/play.png" type="image/png" rel="icon">
+ 	    <link rel="stylesheet" href="/media/css/base.css" media="all"/>
         <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1">
         <script>
             current_song_id = {{ current_song.id }}
@@ -52,7 +53,7 @@
                         // uploads is an array of maps
                         // the maps look like this: {file: FileObject, response: JSONServerResponse}
                         client_reload();
-                        showMessage("Загрузка завершена");
+                        showMessage("Загрузка завершена. Файлы добавлены в библиотеку");
                         load_profile();
                     },
                     params: {
@@ -71,7 +72,7 @@
     <div id="navigator">
         <a class="menu tab current_tab">{% trans "Плеер" %}</a>
         <a class="menu tab">{% trans "Библиотека" %}</a>
-        <a class="menu tab">{% trans "Журнал" %}</a>
+       <!-- <a class="menu tab">{% trans "Журнал" %}</a>-->
         <a class="menu tab">{% trans "Профиль" %}</a>
         <a class="menu tab">{% trans "FAQ" %}</a>
 
@@ -105,7 +106,7 @@
             {% endif %}
         </div>
         <div id="tab_library" class="slide hidden"></div>
-        <div id="tab_journal" class="slide hidden"></div>
+        <!--<div id="tab_journal" class="slide hidden"></div>-->
         <div id="tab_profile" class="slide hidden">
             <div id="login_form" class="extra_padding none" >
 
@@ -125,7 +126,55 @@
                 <div id="file-uploader"></div>
             </div>
         </div>
-        <div id="tab_faq" class="slide hidden"></div>
+        <div id="tab_faq" class="slide hidden">
+            <div id="faq" class="extra_padding" >
+                <h2>Новое в этой версии</h2>
+                <ol>
+                    <li>Регистрация снова работает, и теперь не требуется авктивации профиля</li>
+                    <li>Автовход сразу после регистрации</li>
+                    <li>По заказу фанатов нашего радио, была добавлена функция МУЛЬТИАПЛОАДА!(только будте с ним пожалуйста аккуратнее)</li>
+                    <li>2 кнопки для скачивания плейлиста для плееров.</li>
+                    <li>Возможность скачивать текущий трек</li>
+                    <li>Управлять плеером теперь снова можно - кнопки кое-как работают.</li>
+                    <li>И прочие мелочи.</li>
+                </ol>
+                <h2>Известные проблемы и недоработки</h2>
+                <ol>
+                    <li>Статус воспроизведения обновляется только при перезагрузке страницы</li>
+                    <li>Нет полноценной поддержки тем (зачатки только)</li>
+                    <li>Кнопки на панели ведут себя как статические элементы, не подсвечиваясь и визуально не реагируя на клики.</li>
+                    <li>Страница не перезагружается сама, когда плейлист заканчивается.</li>
+                    <li>И еще много разных недоделок, кому интересно, добро пожаловать на <a href="https://github.com/bigbn/Grooplayer">github</a>.</li>
+                </ol>
+
+                <h2>FAQ</h2>
+                <ol>
+                    <li><b>За что и как тратится карма:</b>
+                        <ol>
+                            <li>Карма пополняется автоматически, по еденице в час, только в будни и только с восьми утра до семи вечера</li>
+                            <li>За Like - списывается 1 еденица у того, кто ставит и добавляется 1 еденица в карму владельцу трека.</li>
+                            <li>За Disike - аналогично Like, но у владельца трека списывается 1 еденица кармы.</li>
+                            <li>За Like своего трека - 3 еденицы кармы</li>
+                            <li>Кнопка Stop - 2 еденицы кармы</li>
+                            <li>Кнопка Play - 2 еденицы кармы</li>
+                            <li>Кнопка Pause - 2 еденицы кармы</li>
+                            <li>Смена трека - 2 еденицы кармы</li>
+                            <li>Изменение громкости - бесплатно(но уже не работает)</li>
+                            <li>Заливка трека - бесплатно</li>
+                        </ol>
+                    </li><br/>
+                    <li><b>Как составляется плэйлист</b><br/>
+                        Каждые 5 минут специальный скрипт смотрит за состоянием воспроизведения, если оно имеет статус "Остановлено", то запускается формирование нового плэйлиста.
+                        Скрипт пробегает по всем трекам в базе, берет отношение Like/Dislike, и если для текущего трека оно меньше 0.5 то вероятность попадания трека в плейлист 2 из 10, если отношение больше 0.5 но меньше чем среднее по лайкам, то вероятность попадания трека в плэйлист равна 0.5, если показатели трека превышают средний коэффициент лайков по всем композициям, то вероятность попадания в плэйлист 8 из 10.
+                        После того как в плэйлист будут добавлены треки, он перемешивается и запускается воспроизведение.
+                    </li><br/>
+                    <li><b>Как остановить воспроизведения плеера вообще</b><br/>
+                        Если плеер находится в состоянии "Приостановлено", т.е. нажата клавиша Pause то новый плэйлисст не будет создаваться и воспроизведение не будет запускаться автоматически.
+                    </li>
+
+                </ol>
+            </div>
+        </div>
     </div>
 
     <div id="content">
@@ -138,5 +187,16 @@
            	{% endfor %}
         </div>
       </div>
+    </div>
+
+    <div id="themes">
+        <ul>
+            <li class="theme" id="theme_standard">Стандартная</li>
+            <li class="theme" id="theme_old">Старая</li>
+            <li class="theme" id="theme_green">Зеленая</li>
+            <li class="theme" id="theme_red">Крассная</li>
+            <li class="theme" id="theme_silver">Серая</li>
+            <li class="theme" id="theme_yellow">Желтая</li>
+        </ul>
     </div>
 </body>

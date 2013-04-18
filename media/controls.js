@@ -12,9 +12,21 @@ $(document).ready(function() {
 
     links_handler();
     forms_handler();
-
+    themes_handler();
     client_reload();
 });
+
+function themes_handler() {
+    $(".theme").each(function(){
+        $(this).click(function(){
+            var theme = $(this).attr("id");
+            console.log(theme);
+
+            $("html").css({"background-image":"url(/media/images/"+theme+".jpg)"});
+        });
+    });
+
+}
 
 function load_player() {
     $("#tab_player").prepend('<div class="totals">Воспроизведение' +
@@ -204,6 +216,7 @@ function refresh_info(track){
     console.log(track);
     current_track = track;
     current_song_id = track.id;
+    document.title = track.artist + " - " + track.title;
     $("#download_link").attr("href", "/media/music/"+track.file);
 
     $("#artist").fadeOut("normal").html(htmlspecialchars(track.artist)).fadeIn("normal");
@@ -279,8 +292,7 @@ function load_journal() {
 }
 
 function load_faq() {
-    addPlaceHolder("#tab_faq","Временно недоступно");
-    $("#tab_faq").prepend('<div class="totals">Часто задаваемые вопросы</div>');
+     $("#tab_faq").prepend('<div class="totals">Часто задаваемые вопросы</div>');
 
 }
 

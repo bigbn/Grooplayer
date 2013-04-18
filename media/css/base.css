@@ -1,4 +1,4 @@
-html {height: 100%; background: #000 url("/media/images/style.jpg") no-repeat fixed left top; background-size: 100%; color: #F1F3C4; font-family: Play, sans-serif}
+html {height: 100%; background: #000 url("/media/images/theme_standard.jpg") no-repeat fixed left top; background-size: 100%; color: #F1F3C4; font-family: Play, sans-serif}
 body {height: 96%; margin: 1em 2em; width: 96%}
 p{color: #A1C3B4;}
 h1 {color: white; margin-right: 0; padding-right: 0;}
@@ -24,8 +24,7 @@ h3:first-letter{text-transform:uppercase}
 .small {font-size: small}
 .half {width: 50%}
 .song:hover {background: rgba(255,255,230,0.3);}
-a {color: #91b4ff
-}
+a {color: #91b4ff}
 #navigator {width: 58%; position: fixed}
 
 a.menu {cursor:pointer; display: block; font-size: 1.4em; color: #EFEFEE; float: left;
@@ -97,3 +96,6 @@ li a{color: #AABB99; text-decoration: none}
 
 
 .modal {position: fixed; left: 15%; top: 25%; width: 20%; text-align: center; border: rgba(255,255,255,.8) solid 2px; padding: 5%; background: rgba(0,0,0,.9)}
+
+#themes {position: fixed; left: 2%; bottom: 0}
+.theme {cursor: pointer; text-decoration: underline; font-size: small}
